@@ -1,0 +1,1 @@
+export const baseURL = 'https://careclub-x4qw.onrender.com';
