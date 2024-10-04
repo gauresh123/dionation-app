@@ -33,6 +33,12 @@ const Navbar = () => {
               Get Involved
             </Link>
           </li>
+          <li>
+            <Link to="/analytycs" smooth={true} duration={500}>
+              Analytics
+            </Link>
+          </li>
+
         </ul>
       </div>
       <Link to="/donate" smooth={true} duration={500}>
