@@ -10,34 +10,31 @@ const Donate = () => {
   const location = useLocation();
 
   const searchParams = new URLSearchParams(location.search);
-const newformData =searchParams.get("Name")&&  {
-  Name :searchParams.get("Name"),
-  Amount:getPrice(searchParams.get("Amount")),
-  Cause:searchParams.get("Cause")
-
-}
-const users = JSON.parse(localStorage.getItem('users')) || [];
-console.log(users)
-useEffect(()=>{
-  if(newformData){
-   const userExist = users.some((val)=>val.Name == newformData.Name)
-if(!userExist){
-  users.push(newformData)
-  localStorage.setItem('users',JSON.stringify(users));
-// localStorage.clear()
-  console.log("call")
-
-}
-  
-  }
-},[location])
+  const newformData = searchParams.get("Name") && {
+    Name: searchParams.get("Name"),
+    Amount: getPrice(searchParams.get("Amount")),
+    Cause: searchParams.get("Cause"),
+  };
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+  console.log(users);
+  useEffect(() => {
+    if (newformData) {
+      const userExist = users.some((val) => val.Name == newformData.Name);
+      if (!userExist) {
+        users.push(newformData);
+        localStorage.setItem("users", JSON.stringify(users));
+        // localStorage.clear()
+        console.log("call");
+      }
+    }
+  }, [location]);
 
   const [formData, setFormData] = useState({
     Name: "",
     PhoneNumber: "",
     Place: "",
     Amount: "",
-    Cause:""
+    Cause: "Education",
   });
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -49,8 +46,6 @@ if(!userExist){
       [e.target.name]: e.target.value,
     });
   };
-
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -99,7 +94,6 @@ if(!userExist){
     const stripe = await stripePromise;
     const params = new URLSearchParams(formData).toString();
 
-
     const { error } = await stripe.redirectToCheckout({
       lineItems: [
         {
@@ -113,21 +107,14 @@ if(!userExist){
       cancelUrl: "http://localhost:5173/donate",
 
       shippingAddressCollection: {
-        allowedCountries: ['IN', 'US', 'GB'], // List of allowed countries, can be adjusted
+        allowedCountries: ["IN", "US", "GB"], // List of allowed countries, can be adjusted
       },
       // Enable billing address collection (optional)
       billingAddressCollection: "auto", // Set to "auto" if you want Stripe to decide
-    
-    })
-
-
-    if(!error){
-
-      navigate("/")
-      
-    }
-
+    });
   };
+
+  console.log(formData, "form");
 
   return (
     <section className="pt-[140px] 2xl:h-[800px]">
@@ -197,9 +184,7 @@ if(!userExist){
                     <option value="Education">Education</option>
                     <option value="Health">Health</option>
                     <option value="Food">Food</option>
-                    
                   </select>
-
                 </div>
 
                 <div className="sm:col-span-2">
