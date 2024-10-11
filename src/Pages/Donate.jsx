@@ -103,8 +103,8 @@ const Donate = () => {
         },
       ],
       mode: "payment",
-      successUrl: `http://localhost:5173/donate?${params}`, // Replace with your actual success URL
-      cancelUrl: "http://localhost:5173/donate",
+      successUrl: `https://dionation-app.vercel.app/donate?${params}`, // Replace with your actual success URL
+      cancelUrl: "https://dionation-app.vercel.app/donate",
 
       shippingAddressCollection: {
         allowedCountries: ["IN", "US", "GB"], // List of allowed countries, can be adjusted
