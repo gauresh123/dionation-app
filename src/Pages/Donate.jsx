@@ -19,12 +19,10 @@ const Donate = () => {
   console.log(users);
   useEffect(() => {
     if (newformData) {
-      const userExist = users.some((val) => val.Name == newformData.Name);
+      const userExist = users?.some((val) => val.Name == newformData.Name);
       if (!userExist) {
         users.push(newformData);
         localStorage.setItem("users", JSON.stringify(users));
-        // localStorage.clear()
-        console.log("call");
       }
     }
   }, [location]);
@@ -49,45 +47,7 @@ const Donate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const { Name, PhoneNumber, Place, Amount } = formData;
 
-    // if (!Name.trim() || !PhoneNumber.trim() || !Place.trim() || !Amount.trim()) {
-    //   setErrorMessage('Please fill out all fields.');
-    //   return;
-    // }
-    // if (Name.length < 3) {
-    //   setErrorMessage('Name must be at least 3 characters.');
-    //   return;
-    // }
-    // if (Name.length > 25) {
-    //   setErrorMessage('Full Name must be less than 25 characters.');
-    //   return;
-    // }
-    // if (PhoneNumber.length !== 10 || isNaN(PhoneNumber)) {
-    //   setErrorMessage('Phone Number must be exactly 10 numeric characters.');
-    //   return;
-    // }
-    // if (Place.length < 3) {
-    //   setErrorMessage('Place must be at least 3 characters.');
-    //   return;
-    // }
-    // if (Place.length > 25) {
-    //   setErrorMessage('Place must be less than 25 characters.');
-    //   return;
-    // }
-    // if (isNaN(Amount)) {
-    //   setErrorMessage('Amount must be in numeric format.');
-    //   return;
-    // }
-    // try {
-    //   await axios.post(`${baseURL}/api/donations`, formData);
-    //   setFormData({ Name: '', PhoneNumber: '', Place: '', Amount: '' });
-    //   setErrorMessage('');
-    //   navigate('/donation-details', { state: { formData } });
-    // } catch (error) {
-    //   console.error('Error making donation', error);
-    //   alert('Failed to make donation. Please try again later.');
-    // }
     const stripePromise = loadStripe(
       "pk_test_51N5opgSB4aBHJM7aV6HE1GuwKPba8dyLcPDCEGbcFS1oFNKvtI7dEp5f5c8964ifIVnFWDXtKNrlmNVinstvigEY00PRH7xYuC"
     );
@@ -113,8 +73,6 @@ const Donate = () => {
       billingAddressCollection: "auto", // Set to "auto" if you want Stripe to decide
     });
   };
-
-  console.log(formData, "form");
 
   return (
     <section className="pt-[140px] 2xl:h-[800px]">
